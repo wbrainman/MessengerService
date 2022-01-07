@@ -2,4 +2,6 @@
     <string name="app_name">DemoMessengerService</string>
     <string name="remote_service_started">remote service started</string>
     <string name="remote_service_stopped">remote service stopped</string>
+    <string name="bind">Bind</string>
+    <string name="send">Send</string>
 </resources>

@@ -11,11 +11,9 @@
         android:theme="@style/Theme.DemoMessengerService" >
         <service
             android:name=".MessengerService"
+            android:process=":remote"
             android:enabled="true"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="com.example.demoMessengerService"/>
-            </intent-filter>
         </service>
 
         <activity

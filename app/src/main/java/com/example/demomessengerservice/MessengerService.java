@@ -10,14 +10,17 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.service.controls.Control;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
 public class MessengerService extends Service {
 
+    private static final String TAG = "DemoMessenger";
     static final int MSG_FROM_CLIENT = 100;
     static final int MSG_TO_CLIENT = 101;
 
@@ -26,6 +29,7 @@ public class MessengerService extends Service {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case MSG_FROM_CLIENT:
+                    Log.d(TAG, "handleMessage: ");
                     Messenger clientMessenger = msg.replyTo;
                     try {
                         clientMessenger.send(Message.obtain(null, MSG_TO_CLIENT, 110,0));
@@ -46,15 +50,25 @@ public class MessengerService extends Service {
 
     @Override
     public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "onCreate: ");
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, R.string.remote_service_stopped, Toast.LENGTH_SHORT).show();
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind: ");
         return mMessenger.getBinder();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand: ");
+        return super.onStartCommand(intent, flags, startId);
     }
 }
